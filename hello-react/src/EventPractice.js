@@ -24,6 +24,13 @@ class EventPractice extends Component {
 		});
 	};
 
+	handleKeyDown = (e) => {
+		// 누른 키가 Enter 키 일 경우 이 컴포넌트에서 선언한 handleClick()함수 실행
+		if (e.key === 'Enter') {
+			this.handleClick();
+		}
+	};
+
 	render() {
 		return (
 			<div>
@@ -41,6 +48,7 @@ class EventPractice extends Component {
 					placeholder="아무거나 입력해 보세요"
 					value={this.state.message}
 					onChange={this.handleChange}
+					onKeyDown={this.handleKeyDown}
 				/>
 				<button onClick={this.handleClick}>확인</button>
 			</div>
