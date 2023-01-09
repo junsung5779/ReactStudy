@@ -1,5 +1,8 @@
 import React, { useReducer } from 'react';
 
+/**
+ * reducer는 현재 상태, 그리고 업데이트를 위해 필요한 정보를 담은 액션(action)값을 전달받아 새로운 상태를 반환하는 함수.
+ */
 function reducer(state, action) {
 	return {
 		...state,
