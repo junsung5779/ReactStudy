@@ -1,28 +1,15 @@
-import React, { useReducer } from 'react';
+import useInputs from './useInputs';
 
-/**
- * reducer는 현재 상태, 그리고 업데이트를 위해 필요한 정보를 담은 액션(action)값을 전달받아 새로운 상태를 반환하는 함수.
- */
-function reducer(state, action) {
-	return {
-		...state,
-		[action.name]: action.value,
-	};
-}
 const Info = () => {
-	const [state, dispatch] = useReducer(reducer, {
+	/**
+	 * Info 컴포넌트에서 여러 개의 인풋을 관리하기 위해 useReducer로 작성했던 로직을
+	 * useInputs라는 Hook으로 따로 분리시켰음.
+	 */
+	const [state, onChange] = useInputs({
 		name: '',
 		nickname: '',
 	});
 	const { name, nickname } = state;
-	const onChange = (e) => {
-		/**
-		 * useReducer에서의 액션은 그 어떤 값도 사용 가능하기 때문에
-		 * 이벤트 객체가 지니고 있는 e.target값 자체를 액션 값으로 사용하여
-		 * 아무리 인풋의 개수가 많아져도 코드를 짧고 깔끔하게 유지할 수 있다.
-		 */
-		dispatch(e.target);
-	};
 
 	return (
 		<div>
