@@ -40,10 +40,25 @@ const App = () => {
         },
         [todos],
     );
+    const onRemove = useCallback(
+        /**
+         * 리액트 컴포넌트에서 배열의 불변성을 지키면서 배열 원소를 제거해야 할 경우,
+         * 배열 내장 함수인 filter를 사용하면 매우 간편하다.
+         * filter 함수는 기존의 배열은 그대로 둔 상태에서 특정 조건을 만족하는 원소들만 따로 추출하여
+         * 새로운 배열을 만들어 준다.
+         * filter 함수에는 조건을 확인해 주는 함수를 파라미터로 넣어줘야 한다.
+         * 파라미터로 넣는 함수는 true 혹은 false값을 반환해야 하며,
+         * 여기서 true를 반환하는 경우만 새로운 배열에 포함된다.
+         */
+        (id) => {
+            setTodos(todos.filter((todo) => todo.id !== id));
+        },
+        [todos],
+    );
     return (
         <TodoTemplate>
             <TodoInsert onInsert={onInsert} />
-            <TodoList todos={todos} />
+            <TodoList todos={todos} onRemove={onRemove} />
         </TodoTemplate>
     );
 };
