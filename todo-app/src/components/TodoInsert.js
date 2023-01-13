@@ -13,7 +13,7 @@ const TodoInsert = ({ onInsert }) => {
     const onChange = useCallback((e) => {
         setValue(e.target.value);
     }, []);
-    const onClick = useCallback(
+    const onSubmit = useCallback(
         (e) => {
             onInsert(value);
             setValue(''); // value 값 초기화
@@ -25,13 +25,13 @@ const TodoInsert = ({ onInsert }) => {
         [onInsert, value],
     );
     return (
-        <form className="TodoInsert">
+        <form className="TodoInsert" onSubmit={onSubmit}>
             <input
                 placeholder="할 일을 입력하세요"
                 value={value}
                 onChange={onChange}
             />
-            <button onClick={onClick}>
+            <button type="submit">
                 <MdAdd />
             </button>
         </form>
