@@ -48,28 +48,26 @@ const App = () => {
          */
         (id) => {
             // todo의 id가 파라미터로 들어온 id와 같지 않는 경우 true 반환
-            setTodos(todos.filter((todo) => todo.id !== id));
+            setTodos((todos) => todos.filter((todo) => todo.id !== id));
         },
-        [todos],
+        [],
     );
 
-    const onToggle = useCallback(
-        (id) => {
-            setTodos(
-                /**
-                 * 배열 내장함수 map을 사용하여 특정 id를 가지고 있는 객체의 checked 값을 반전시켰다.
-                 * 불변성을 유지하면서 특정 배열 원소를 업데이트해야 할 때 map이 유용하다.
-                 * todo.id와 현재 파라미터로 사용된 id값이 같을 때는 우리가 정해 준 규칙대로 새로운 객체를 생성하지만,
-                 * id값이 다를 때는 변화를 주지 않고 처음 받아 왔던 상태 그대로 반환한다.
-                 * 그렇기 때문에 map을 사용하여 만든 배열에서 변화가 필요한 원소만 업데이트되고 나머지는 그대로 남아 있게 되는 것이다.
-                 */
+    const onToggle = useCallback((id) => {
+        setTodos(
+            /**
+             * 배열 내장함수 map을 사용하여 특정 id를 가지고 있는 객체의 checked 값을 반전시켰다.
+             * 불변성을 유지하면서 특정 배열 원소를 업데이트해야 할 때 map이 유용하다.
+             * todo.id와 현재 파라미터로 사용된 id값이 같을 때는 우리가 정해 준 규칙대로 새로운 객체를 생성하지만,
+             * id값이 다를 때는 변화를 주지 않고 처음 받아 왔던 상태 그대로 반환한다.
+             * 그렇기 때문에 map을 사용하여 만든 배열에서 변화가 필요한 원소만 업데이트되고 나머지는 그대로 남아 있게 되는 것이다.
+             */
+            (todos) =>
                 todos.map((todo) =>
                     todo.id === id ? { ...todo, checked: !todo.checked } : todo,
                 ),
-            );
-        },
-        [todos],
-    );
+        );
+    }, []);
     return (
         <TodoTemplate>
             <TodoInsert onInsert={onInsert} />
