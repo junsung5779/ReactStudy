@@ -1,9 +1,10 @@
-import './App.css'
-import { useState } from 'react'
+import './App.css';
+import { useState } from 'react';
 
 function App() {
-  let [글제목, 글제목변경] = useState(['남자 코트 추천', '강남 우동맛집', '파이썬 독학'])
-  let [따봉, 따봉변경] = useState([0, 0, 0])
+  let [글제목, 글제목변경] = useState(['남자 코트 추천', '강남 우동맛집', '파이썬 독학']);
+  let [따봉, 따봉변경] = useState([0, 0, 0]);
+  let [modal, setModal] = useState(false);
 
   return (
     <div className="App">
@@ -13,22 +14,26 @@ function App() {
 
       <button
         onClick={() => {
-          let copy = [...글제목]
-          copy.sort()
-          글제목변경(copy)
+          let copy = [...글제목];
+          copy.sort();
+          글제목변경(copy);
         }}
       >
         가나다순 정렬
       </button>
 
       <div className="list">
-        <h4>
+        <h4
+          onClick={() => {
+            setModal(!modal);
+          }}
+        >
           {글제목[0]}
           <span
             onClick={() => {
-              let copy = [...따봉]
-              copy[0] += 1
-              따봉변경(copy)
+              let copy = [...따봉];
+              copy[0] += 1;
+              따봉변경(copy);
             }}
           >
             👍
@@ -38,9 +43,9 @@ function App() {
         <p>2월 17일 발행</p>
         <button
           onClick={() => {
-            let copy = [...글제목]
-            copy[0] = '여자 코트 추천'
-            글제목변경(copy)
+            let copy = [...글제목];
+            copy[0] = '여자 코트 추천';
+            글제목변경(copy);
           }}
         >
           변경!
@@ -58,10 +63,10 @@ function App() {
         </h4>
         <p>2월 17일 발행</p>
 
-        <Modal />
+        {modal === true ? <Modal /> : null}
       </div>
     </div>
-  )
+  );
 }
 
 /**
@@ -77,7 +82,7 @@ function Modal() {
       <p>날짜</p>
       <p>상세내용</p>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
