@@ -23,7 +23,7 @@ function App() {
       {글제목.map((a, i) => {
         return (
           <div className="list" key={i}>
-            <h4>
+            <h4 onClick={()=>{setModal(!modal)}}>
               {글제목[i]}
               <span
                 onClick={() => {
@@ -39,25 +39,33 @@ function App() {
           </div>
         );
       })}
-      {modal === true ? <Modal /> : null}
+      {modal === true ? <Modal 글제목={글제목} 글제목변경={글제목변경} /> : null}
     </div>
   );
+
+  /**
+   * 컴포넌트화 하면 좋은 case
+   * 1. 반복적인 html 축약할 때
+   * 2. 큰 페이지들
+   * 3. 자주 변경되는 html UI들
+   */
+  function Modal(props) {
+    return (
+      <div className="modal">
+        <h4>{props.글제목[0]}</h4>
+        <p>날짜</p>
+        <p>상세내용</p>
+        <button onClick={()=>{
+            let copy = [...props.글제목];
+            copy[0] = '여자 코트 추천';
+            props.글제목변경(copy);
+            }
+          }>글 수정
+        </button>
+      </div>
+    );
+  }
 }
 
-/**
- * 컴포넌트화 하면 좋은 case
- * 1. 반복적인 html 축약할 때
- * 2. 큰 페이지들
- * 3. 자주 변경되는 html UI들
- */
-function Modal() {
-  return (
-    <div className="modal">
-      <h4>제목</h4>
-      <p>날짜</p>
-      <p>상세내용</p>
-    </div>
-  );
-}
 
 export default App;
