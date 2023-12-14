@@ -11,7 +11,6 @@ function App() {
       <div className="black-nav">
         <div>React blog</div>
       </div>
-
       <button
         onClick={() => {
           let copy = [...글제목];
@@ -21,50 +20,26 @@ function App() {
       >
         가나다순 정렬
       </button>
-
-      <div className="list">
-        <h4
-          onClick={() => {
-            setModal(!modal);
-          }}
-        >
-          {글제목[0]}
-          <span
-            onClick={() => {
-              let copy = [...따봉];
-              copy[0] += 1;
-              따봉변경(copy);
-            }}
-          >
-            👍
-          </span>
-          {따봉[0]}
-        </h4>
-        <p>2월 17일 발행</p>
-        <button
-          onClick={() => {
-            let copy = [...글제목];
-            copy[0] = '여자 코트 추천';
-            글제목변경(copy);
-          }}
-        >
-          변경!
-        </button>
-      </div>
-      <div className="list">
-        <h4>
-          {글제목[1]} <span>👍{따봉[1]}</span>
-        </h4>
-        <p>2월 17일 발행</p>
-      </div>
-      <div className="list">
-        <h4>
-          {글제목[2]} <span>👍{따봉[2]}</span>
-        </h4>
-        <p>2월 17일 발행</p>
-
-        {modal === true ? <Modal /> : null}
-      </div>
+      {글제목.map((a, i) => {
+        return (
+          <div className="list" key={i}>
+            <h4>
+              {글제목[i]}
+              <span
+                onClick={() => {
+                  let copy = [...따봉];
+                  copy[i] += 1;
+                  따봉변경(copy);
+                }}
+              >
+                👍
+              </span>
+              {따봉[i]}
+            </h4>
+          </div>
+        );
+      })}
+      {modal === true ? <Modal /> : null}
     </div>
   );
 }
