@@ -60,7 +60,7 @@ function App() {
       </input>
       <button onClick={(e)=>{
         let copy = [...글제목];
-        copy.push(input);
+        copy.unshift(input);
         글제목변경(copy);
       }}>발행</button>
 
