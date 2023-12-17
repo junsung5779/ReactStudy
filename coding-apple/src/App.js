@@ -41,6 +41,12 @@ function App() {
                 👍
               </span>
               {따봉[i]}
+            <button onClick={(e)=>{
+              e.stopPropagation();
+              let copy = [...글제목];
+              copy.splice(i,1);
+              글제목변경(copy);
+            }}>삭제</button>
             </h4>
           </div>
         );
