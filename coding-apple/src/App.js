@@ -5,7 +5,8 @@ function App() {
   let [글제목, 글제목변경] = useState(['남자 코트 추천', '강남 우동맛집', '파이썬 독학']);
   let [따봉, 따봉변경] = useState([0, 0, 0]);
   let [modal, setModal] = useState(false);
-  let [lastIdx, setLastIdx] = useState(0)
+  let [idx, setIdx] = useState(0)
+  let [input, setInput] =useState('');
 
   return (
     <div className="App">
@@ -25,12 +26,13 @@ function App() {
         return (
           <div className="list" key={i}>
             <h4 onClick={()=>{
-                setLastIdx(i)
+                setIdx(i)
                 setModal(!modal)
               }}>
               {글제목[i]}
               <span
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();  // 상위 요소로의 이벤트 버블링을 막아주는 함수
                   let copy = [...따봉];
                   copy[i] += 1;
                   따봉변경(copy);
@@ -43,7 +45,20 @@ function App() {
           </div>
         );
       })}
-      {modal === true ? <Modal 글제목={글제목} 글제목변경={글제목변경} lastIdx={lastIdx} /> : null}
+
+      <input onChange={(e)=>{
+        setInput(e.target.value);
+        console.log(input);
+      }}>
+
+      </input>
+      <button onClick={(e)=>{
+        let copy = [...글제목];
+        copy.push(input);
+        글제목변경(copy);
+      }}>발행</button>
+
+      {modal === true ? <Modal 글제목={글제목} 글제목변경={글제목변경} idx={idx} /> : null}
     </div>
   );
 
@@ -56,7 +71,7 @@ function App() {
   function Modal(props) {
     return (
       <div className="modal">
-        <h4>{props.글제목[props.lastIdx]}</h4>
+        <h4>{props.글제목[props.idx]}</h4>
         <p>날짜</p>
         <p>상세내용</p>
         <button>글 수정</button>
