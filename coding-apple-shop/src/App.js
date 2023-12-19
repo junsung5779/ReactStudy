@@ -1,8 +1,13 @@
 import "./App.css";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Card, Container, Nav, Navbar } from "react-bootstrap";
 import bg from "./img/bg.png";
+import { useState } from "react";
+import data from './data.js';
 
 function App() {
+
+  let [shoes] = useState(data)
+
   return (
     <div>
       <Navbar bg="light" variant="light">
@@ -20,25 +25,25 @@ function App() {
 
       <div className="container">
         <div className="row">
-          <div className="col-md-4">
-            <img src={process.env.PUBLIC_URL + "/logo192.png"} width="80%" alt="" />
-            <h4>상품명</h4>
-            <p>상품설명</p>
-          </div>
-          <div className="col-md-4">
-            <img src="https://codingapple1.github.io/shop/shoes2.jpg" width="80%" alt="" />
-            <h4>상품명</h4>
-            <p>상품설명</p>
-          </div>
-          <div className="col-md-4">
-            <img src="https://codingapple1.github.io/shop/shoes3.jpg" width="80%" alt="" />
-            <h4>상품명</h4>
-            <p>상품설명</p>
-          </div>
+          {shoes.map((a,i)=>{
+            return(
+              <Card shoes={shoes[i]} i={i}></Card>
+            )
+          })}
         </div>
       </div>
     </div>
   );
+
+  function Card(props) {
+    return(
+      <div className="col-md-4" key={props.shoes.id}>
+        <img src={`https://codingapple1.github.io/shop/shoes${props.i+1}.jpg`} width="80%" alt="" />
+        <h4>{props.shoes.title}</h4>
+        <p>{props.shoes.content}</p>
+      </div>
+    );
+  }
 }
 
 export default App;
