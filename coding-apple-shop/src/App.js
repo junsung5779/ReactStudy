@@ -55,10 +55,11 @@ function App() {
           }
         />
         <Route
-          path="/detail"
+          // url parameter 사용하기
+          path="/detail/:id"
           element={
             <>
-              <Detail></Detail>
+              <Detail shoes={shoes} />
             </>
           }
         />
