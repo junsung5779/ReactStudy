@@ -2,18 +2,18 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 function Detail(props) {
+  let [alert, setAlert] = useState(true);
 
-  let [alert , setAlert] = useState(true)
-
-  useEffect(()=>{
+  useEffect(() => {
+    // 여기적은 코드는 컴포넌트 load & update 마다 실행됨(라이프사이클 훅 과 동일한 개념)
     // 어려운 연산
     // 서버에서 데이터 가져오는 작업
     // 타이머
-    console.log('useEffect hook은 html 요소들이 렌더링 되고난 후 실행됨');
-    setTimeout(()=>{
-      setAlert(false)
-    }, 2000)
-  })
+    console.log("useEffect hook은 html 요소들이 렌더링 되고난 후 실행됨");
+    setTimeout(() => {
+      setAlert(false);
+    }, 2000);
+  });
 
   // url parameter 사용한 것 받아와서 사용하기
   let { id } = useParams();
@@ -26,12 +26,7 @@ function Detail(props) {
 
   return (
     <div className="container">
-      { alert === true ? 
-      <div className="alert alert-warning">
-        2초이내 구매시 할인
-      </div>
-      : null
-      }
+      {alert === true ? <div className="alert alert-warning">2초이내 구매시 할인</div> : null}
       <div className="row">
         <div className="col-md-6">
           <img src={`https://codingapple1.github.io/shop/shoes1.jpg`} width="100%" alt="" />
