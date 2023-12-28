@@ -5,6 +5,7 @@ import { useState } from "react";
 import data from "./data.js";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import Detail from "./routes/Detail.js";
+import axios from 'axios'
 
 function App() {
   let [shoes] = useState(data);
@@ -51,6 +52,14 @@ function App() {
                   })}
                 </div>
               </div>
+              <button onClick={()=>{
+                // axios 라이브러리를 통해 ajax요청 보내기
+                axios.get('https://codingapple1.github.io/shop/data2.json')
+                // 성공 시 실행할 코드
+                .then((data)=>{console.log(data)})
+                // 실패 시 실행할 코드
+                .catch(()=>{console.log('실패함 ㅅㄱ')})
+              }}>버튼</button>
             </>
           }
         />
