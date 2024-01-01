@@ -24,6 +24,7 @@ function Detail(props) {
      * clean up function
      * useEffect 동작하기 전에 clean up function 내부의 코드부터 먼저 실행된다.
      * 사용법: return ()=>{}
+     * component unmount시에도 clean up function이 1회 실행됨
      */
     return () => {
       //타이머 제거x
@@ -38,7 +39,7 @@ function Detail(props) {
   let { id } = useParams();
   // 1. find()는 array 뒤에 붙일 수 있으며 return 조건식 적으면 됩니다. 그럼 조건식에 맞는 자료 남겨줌
   // 2. find() 콜백함수에 파라미터 넣으면 array자료에 있던 자료를 뜻합니다. 전 x라고 작명해봤음
-  // 3. x.id == id 라는 조건식을 써봤습니다. 그럼 array자료.id == url에입력한번호 일 경우 결과를 변수에 담아줍니다.
+  // 3. x.id == id 라는 조건식을 써봤습니다. 그럼 array자료.id == url에 입력한 번호일 경우 결과를 변수에 담아줍니다.
   let 찾은상품 = props.shoes.find(function (x) {
     return x.id == id;
   });

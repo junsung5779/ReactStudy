@@ -8,7 +8,7 @@ import Detail from "./routes/Detail.js";
 import axios from 'axios'
 
 function App() {
-  let [shoes] = useState(data);
+  let [shoes, setShoes] = useState(data);
   // hook: 유용한 것들이 들어있는 함수(useNavigate(): 페이지 이동을 도와주는 함수)
   let navigate = useNavigate();
 
@@ -52,14 +52,21 @@ function App() {
                   })}
                 </div>
               </div>
+
               <button onClick={()=>{
                 // axios 라이브러리를 통해 ajax요청 보내기
                 axios.get('https://codingapple1.github.io/shop/data2.json')
                 // 성공 시 실행할 코드
-                .then((data)=>{console.log(data)})
+                .then((res)=>{
+                  console.log(res);
+                  // ajax요청으로 가져온 데이터를 shoes 데이터에 추가
+                  let copyShoes = [...shoes, ...res.data];
+                  // setShoes
+                  setShoes(copyShoes);
+                })
                 // 실패 시 실행할 코드
                 .catch(()=>{console.log('실패함 ㅅㄱ')})
-              }}>버튼</button>
+              }}>shoe 추가버튼</button>
             </>
           }
         />
