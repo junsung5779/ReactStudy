@@ -60,6 +60,10 @@ function App() {
                   // 클릭 시 loading state 띄우기(요청중입니다.)
                   setLoadingState(true);
                   // axios 라이브러리를 통해 ajax요청 보내기
+                  // 클라이언트<->서버 간 데이터 전송시에는 문자열로만 전송가능
+                  // json형식은 array,object와 같은 형식을 문자열 형태로 변환한 형식
+                  // axios는 클라이언트<->서버 간 데이터 전송 시 array,object와 같은 형식을 json화 시켜주는 라이브러리임
+                  // 라이브러리 안쓰고 ajax 요청 보내려면 fetch()사용(단, json화 수동으로 시켜줘야 함)
                   axios.get(`https://codingapple1.github.io/shop/data${clickCount+2}.json`)
                   // 성공 시 실행할 코드
                   .then((res)=>{
