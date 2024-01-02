@@ -10,6 +10,7 @@ import axios from 'axios'
 function App() {
   let [shoes, setShoes] = useState(data);
   let [clickCount, setClickCount] = useState(0);
+  let [loadingState, setLoadingState] = useState(false);
   // hook: 유용한 것들이 들어있는 함수(useNavigate(): 페이지 이동을 도와주는 함수)
   let navigate = useNavigate();
 
@@ -56,6 +57,8 @@ function App() {
               {clickCount <= 1 &&
               
                 <button onClick={()=>{
+                  // 클릭 시 loading state 띄우기(요청중입니다.)
+                  setLoadingState(true);
                   // axios 라이브러리를 통해 ajax요청 보내기
                   axios.get(`https://codingapple1.github.io/shop/data${clickCount+2}.json`)
                   // 성공 시 실행할 코드
@@ -67,12 +70,18 @@ function App() {
                     let copyShoes = [...shoes, ...res.data];
                     // setShoes
                     setShoes(copyShoes);
+                    setLoadingState(false);
                   })
                   // 실패 시 실행할 코드
                   .catch(()=>{
-                    console.log('실패함 ㅅㄱ')
+                    console.log('실패함 ㅅㄱ');
+                    setLoadingState(false);
                   })
                 }}>shoe 추가버튼</button>
+              }
+              { loadingState === true &&
+                <p>요청중입니다.</p>
+
               }
             </>
           }
