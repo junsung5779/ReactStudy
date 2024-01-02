@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Nav } from 'react-bootstrap'
 
 function Detail(props) {
   let [alert, setAlert] = useState(true);
   let [count, setCount] = useState(0);
   let [input1, setInput1] = useState(0);
+  let [tab, setTab] =useState(0);
 
   // Component mount(load), update, dependencies 실행조건을 충족시킬 때마다 useEffect 실행
   useEffect(() => {
@@ -70,8 +72,45 @@ function Detail(props) {
           <button className="btn btn-danger">주문하기</button>
         </div>
       </div>
+
+      <Nav variant="tabs"  defaultActiveKey="link0">
+        <Nav.Item>
+          <Nav.Link eventKey="link0" onClick={()=>{setTab(0)}}>버튼0</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="link1" onClick={()=>{setTab(1)}}>버튼1</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="link2" onClick={()=>{setTab(2)}}>버튼2</Nav.Link>
+        </Nav.Item>
+      </Nav>
+      <TabContent tab={tab}/>
     </div>
   );
 }
+
+function TabContent(props) {
+  if (props.tab === 0) {
+    return(<div>내용0</div>)
+  }
+  if (props.tab === 1) {
+    return(<div>내용1</div>)
+  }
+  if (props.tab === 2) {
+    return(<div>내용2</div>)
+  }
+}
+/**
+ * 팁1. props.~가 귀찮으면
+ * function TabContent({tab}) {
+ *  if (tab === 0) {
+ *    ~
+ *  }
+ * }
+ * 팁2. 배열과 인덱스 접근을 결합한 표현식 사용
+ * [요소1, 요소2, 요소3, ...][배열에서 특정 요소에 접근하기 위한 인덱스]
+ * [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab]
+ */
+
 
 export default Detail;
