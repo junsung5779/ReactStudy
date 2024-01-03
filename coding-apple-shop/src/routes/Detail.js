@@ -7,6 +7,7 @@ function Detail(props) {
   let [count, setCount] = useState(0);
   let [input1, setInput1] = useState(0);
   let [tab, setTab] = useState(0);
+  let [fade, setFade] = useState('');
 
   // Component mount(load), update, dependencies 실행조건을 충족시킬 때마다 useEffect 실행
   useEffect(() => {
@@ -18,6 +19,9 @@ function Detail(props) {
     let a = setTimeout(() => {
       setAlert(false);
     }, 2000);
+    let b = setTimeout(()=>{
+      setFade('end')
+    },100)
     // 숙제
     if (isNaN(input1)) {
       console.log("이러지 마세요");
@@ -31,6 +35,8 @@ function Detail(props) {
     return () => {
       //타이머 제거x
       clearTimeout(a);
+      clearTimeout(b);
+      setFade('');
     };
     // useEffect 실행조건 넣을 수 있는 곳은 [실행조건](dependencies)
     // []: Component가 최초 1회 mount 될 때만 실행됨(이후 실행 x)
@@ -47,7 +53,7 @@ function Detail(props) {
   });
 
   return (
-    <div className="container">
+    <div className={`container start ${fade}`}>
       {alert === true ? <div className="alert alert-warning">2초이내 구매시 할인</div> : null}
       <button
         onClick={() => {
