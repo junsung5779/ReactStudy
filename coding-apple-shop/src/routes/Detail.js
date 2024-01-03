@@ -1,14 +1,8 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Nav } from 'react-bootstrap'
-import { Context1 } from './../App.js'
+import { Nav } from 'react-bootstrap';
 
 function Detail(props) {
-
-  //Context 해체해주는 함수
-  // destructuring 문법 사용(내가 사용하고 싶은 state명 가져오기)
-  let {stock} = useContext(Context1);
-
   let [alert, setAlert] = useState(true);
   let [count, setCount] = useState(0);
   let [input1, setInput1] = useState(0);
@@ -102,7 +96,6 @@ function Detail(props) {
 }
 
 function TabContent({tab}) {
-  let {stock} = useContext(Context1);
   let [fade, setFade] = useState('');
   /**
    * 팁1. props.~가 귀찮으면
@@ -136,7 +129,7 @@ function TabContent({tab}) {
 
   return(
     <div className={`start ${fade}`}>
-      {[<div>{stock}</div>, <div>내용1</div>, <div>내용2</div>][tab]}
+      {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab]}
     </div>
   )
 }

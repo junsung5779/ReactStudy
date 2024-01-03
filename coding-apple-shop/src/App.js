@@ -1,26 +1,11 @@
 import "./App.css";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import bg from "./img/bg.png";
-import { createContext, useState } from "react";
+import { useState } from "react";
 import data from "./data.js";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import Detail from "./routes/Detail.js";
 import axios from 'axios'
-
-/**
- * 리액트 내장문법 Context API 사용하면, 자식은 props없이 state 이용가능
- * 사용법
- * 1. 보관함 만들기
- * Context: state 보관함
- * 2. Context로 원하는 컴포넌트 감싸고, 공유하고자 하는 state를 value에 작성
- * 3. 사용하고자 하는 컴포넌트에서 Context를 import
- * 
- * 단점
- * 1. state 변경시 쓸데없는 것 까지 재렌더링됨
- * 2. 자식 컴포넌트가 context 문법을 사용하고 있다면 다른페이지에서 import해서
- * 재사용하고 싶을 때 이상해질 수 있음
- */
-export let Context1 = createContext();
 
 
 function App() {
@@ -111,10 +96,7 @@ function App() {
           // url parameter 사용하기
           path="/detail/:id"
           element={
-            // Context API 사용: 컴포넌트를 Context로 감싸고 내가 공유 할 state를 value에 작성
-            <Context1.Provider value={{stock}}>
               <Detail shoes={shoes} />
-            </Context1.Provider>
           }
         />
         <Route path="/about" element={<About />}>
