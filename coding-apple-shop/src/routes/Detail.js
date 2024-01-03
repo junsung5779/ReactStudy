@@ -6,7 +6,7 @@ function Detail(props) {
   let [alert, setAlert] = useState(true);
   let [count, setCount] = useState(0);
   let [input1, setInput1] = useState(0);
-  let [tab, setTab] =useState(0);
+  let [tab, setTab] = useState(0);
 
   // Component mount(load), update, dependencies 실행조건을 충족시킬 때마다 useEffect 실행
   useEffect(() => {
@@ -89,28 +89,44 @@ function Detail(props) {
   );
 }
 
-function TabContent(props) {
-  if (props.tab === 0) {
-    return(<div>내용0</div>)
-  }
-  if (props.tab === 1) {
-    return(<div>내용1</div>)
-  }
-  if (props.tab === 2) {
-    return(<div>내용2</div>)
-  }
+function TabContent({tab}) {
+  let [fade, setFade] = useState('');
+  /**
+   * 팁1. props.~가 귀찮으면
+   * function TabContent({tab}) {
+   *  if (tab === 0) {
+   *    ~
+   *  }
+   * }
+   * 팁2. 배열과 인덱스 접근을 결합한 표현식 사용
+   * [요소1, 요소2, 요소3, ...][배열에서 특정 요소에 접근하기 위한 인덱스]
+   * [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab]
+   */
+
+  // tab이 변경될 때마다 css 변경 실행
+  useEffect(()=>{
+    /**
+     * 시간차를 둔 이유
+     * 리액트 18버전 이상부터는 automatic batch 라는 기능이 생김
+     * state 변경함수들이 연달아서 여러개 처리되어야한다면
+     * state 변경함수를 다 처리하고 마지막에 한 번만 재렌더링됨.
+     * 그래서 묶어서 처리하지 못하게 시간차를 둠
+     * automatic batching을 막아주는 flushSync() 이런거 써도 될 것 같음
+     */
+    let a = setTimeout(()=>{setFade('end')}, 100)
+    // use cleanup func
+    return(()=>{
+      clearTimeout(a)
+      setFade('')
+    })
+  },[tab])
+
+  return(
+    <div className={`start ${fade}`}>
+      {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab]}
+    </div>
+  )
 }
-/**
- * 팁1. props.~가 귀찮으면
- * function TabContent({tab}) {
- *  if (tab === 0) {
- *    ~
- *  }
- * }
- * 팁2. 배열과 인덱스 접근을 결합한 표현식 사용
- * [요소1, 요소2, 요소3, ...][배열에서 특정 요소에 접근하기 위한 인덱스]
- * [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][tab]
- */
 
 
 export default Detail;
