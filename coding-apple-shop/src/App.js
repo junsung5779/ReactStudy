@@ -6,6 +6,7 @@ import data from "./data.js";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import Detail from "./routes/Detail.js";
 import axios from 'axios'
+import Cart from "./routes/Cart.js";
 
 
 function App() {
@@ -99,37 +100,14 @@ function App() {
               <Detail shoes={shoes} />
           }
         />
-        <Route path="/about" element={<About />}>
-          <Route path="member" element={<p>멤버임</p>}></Route>
-          <Route path="location" element={<p>위치정보임</p>}></Route>
-        </Route>
-        <Route path="/event" element={<Event />}>
-          <Route path="one" element={<p>첫 주문시 양배추즙 서비스</p>}></Route>
-          <Route path="two" element={<p>생일기념 쿠폰받기</p>}></Route>
-        </Route>
+
+        <Route path="/cart" element={ <Cart/> } />
 
         {/* 404 페이지 */}
         <Route path="*" element={<div>없는페이지요</div>} />
       </Routes>
     </div>
   );
-
-  function About() {
-    return (
-      <div>
-        <h4>회사 정보임</h4>
-        <Outlet></Outlet>
-      </div>
-    );
-  }
-  function Event() {
-    return (
-      <div>
-        <h4>오늘의 이벤트</h4>
-        <Outlet></Outlet>
-      </div>
-    );
-  }
 
   function Card(props) {
     return (
