@@ -53,7 +53,7 @@ function App() {
               <div className="container">
                 <div className="row">
                   {shoes.map((a, i) => {
-                    return <Card shoes={shoes[i]} i={i}></Card>;
+                    return <Card shoes={shoes[i]} i={i} key={i}></Card>;
                   })}
                 </div>
               </div>
@@ -111,7 +111,7 @@ function App() {
 
   function Card(props) {
     return (
-      <div className="col-md-4" key={props.i}>
+      <div className="col-md-4">
         <img src={`https://codingapple1.github.io/shop/shoes${props.i + 1}.jpg`} width="80%" alt="" />
         <h4>{props.shoes.title}</h4>
         <p>{props.shoes.content}</p>
