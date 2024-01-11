@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Nav } from 'react-bootstrap';
+import { addItem } from '../store.js';
+import { useDispatch } from "react-redux";
 
 function Detail(props) {
   let [alert, setAlert] = useState(true);
@@ -8,6 +10,7 @@ function Detail(props) {
   let [input1, setInput1] = useState(0);
   let [tab, setTab] = useState(0);
   let [fade, setFade] = useState('');
+  let dispatch = useDispatch();
 
   // Component mount(load), update, dependencies 실행조건을 충족시킬 때마다 useEffect 실행
   useEffect(() => {
@@ -75,7 +78,9 @@ function Detail(props) {
           <h4 className="pt-5">{찾은상품.title}</h4>
           <p>{찾은상품.content}</p>
           <p>{찾은상품.price}</p>
-          <button className="btn btn-danger">주문하기</button>
+          <button className="btn btn-danger" onClick={()=>{
+            dispatch(addItem({ id: 찾은상품.id, name: 찾은상품.title, count: 1 }))
+          }}>주문하기</button>
         </div>
       </div>
 

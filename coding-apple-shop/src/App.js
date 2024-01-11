@@ -34,10 +34,17 @@ function App() {
             </Navbar.Brand>
             <Navbar.Brand
               onClick={() => {
-                navigate("/detail");
+                navigate("/detail/1");
               }}
             >
               Detail
+            </Navbar.Brand>
+            <Navbar.Brand
+              onClick={() => {
+                navigate("/cart");
+              }}
+            >
+              Cart
             </Navbar.Brand>
           </Nav>
         </Container>

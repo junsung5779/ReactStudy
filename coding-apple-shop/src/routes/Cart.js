@@ -1,9 +1,10 @@
 import { Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeName } from './../store';
+import { changeName, increaseAge } from './../store/userSlice.js';
+import { addCount } from '../store.js';
+
 
 function Cart() {
-
     // Redux store 가져와줌
     // 단, 컴포넌트간 state 공유가 필요없으면 그냥 useState() 사용하는게 더 나을 듯
     let state = useSelector((state)=> state)
@@ -13,7 +14,10 @@ function Cart() {
 
     return(
         <div>
-            {state.user}의 장바구니
+            <h6>{state.user.name} {state.user.age}의 장바구니</h6>
+            <button onClick={()=>{
+                dispatch(increaseAge(10))
+            }}>버튼</button>
             <Table>
                 <thead>
                     <tr>
@@ -33,7 +37,7 @@ function Cart() {
                                     <td>{a.count}</td>
                                     <td>
                                         <button onClick={()=> {
-                                            dispatch(changeName())
+                                            dispatch(addCount(a.id))
                                         }}>
                                             +
                                         </button>
